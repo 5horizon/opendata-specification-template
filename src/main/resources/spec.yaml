@@ -1,0 +1,10 @@
+pagination:
+  filter:
+    field-separator: ;
+    level-separator: \.
+    pattern: ([\.\w]+?)(::|!:|<<|>>|>:|<:)([\w\s\.\(\)\-А-яЁё<>|%]+?)${pagination.filter.field-separator}
+    local-date-format: yyyy-MM-dd
+    offset-date-time-format: yyyy-MM-dd'T'HH:mm:ss'Z'
+  sort:
+    field-separator: ;
+    pattern: ([\w\.]+?)(:)(\w+?)${pagination.sort.field-separator}
