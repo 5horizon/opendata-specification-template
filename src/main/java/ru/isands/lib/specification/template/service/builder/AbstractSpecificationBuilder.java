@@ -55,7 +55,8 @@ public class AbstractSpecificationBuilder<T> implements SpecificationBuilder<T> 
             List<Specification<T>> addingSpecs = new ArrayList<>();
             for (Specification<T> spec : specs) {
                 AbstractSpecification<T> abstractSpec = (AbstractSpecification<T>) spec;
-                if (!abstractSpec.getCriteria().getKey().equals("name") && !abstractSpec.getCriteria().getKey().equals("tags.id")) {
+                if (!abstractSpec.getCriteria().getKey().equals("name")
+                        && !abstractSpec.getCriteria().getKey().equals("tags.nsiId")) {
                     addingSpecs.add(spec);
                 }
             }
@@ -83,7 +84,7 @@ public class AbstractSpecificationBuilder<T> implements SpecificationBuilder<T> 
             if (abstractSpec.getCriteria().getKey().equals("name")) {
                 nameSpec = spec;
             }
-            if (abstractSpec.getCriteria().getKey().equals("tags.id")) {
+            if (abstractSpec.getCriteria().getKey().equals("tags.nsiId")) {
                 tagSpec = spec;
             }
         }
