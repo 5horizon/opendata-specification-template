@@ -56,7 +56,7 @@ public class AbstractSpecificationBuilder<T> implements SpecificationBuilder<T> 
             for (Specification<T> spec : specs) {
                 AbstractSpecification<T> abstractSpec = (AbstractSpecification<T>) spec;
                 if (!abstractSpec.getCriteria().getKey().equals("name")
-                        && !abstractSpec.getCriteria().getKey().equals("tags.nsiId")) {
+                        && !abstractSpec.getCriteria().getKey().equals("tags")) {
                     addingSpecs.add(spec);
                 }
             }
@@ -84,7 +84,7 @@ public class AbstractSpecificationBuilder<T> implements SpecificationBuilder<T> 
             if (abstractSpec.getCriteria().getKey().equals("name")) {
                 nameSpec = spec;
             }
-            if (abstractSpec.getCriteria().getKey().equals("tags.nsiId")) {
+            if (abstractSpec.getCriteria().getKey().equals("tags")) {
                 tagSpec = spec;
             }
         }

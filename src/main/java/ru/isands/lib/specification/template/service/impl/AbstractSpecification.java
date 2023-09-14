@@ -12,13 +12,17 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -52,6 +56,8 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
                 }
             }
             path = chain.get(levels[levels.length - 1]);
+        } else if (this.criteria.getOperation().equals("!!")) {
+            path = root.join(criteria.getKey(), JoinType.LEFT);
         } else {
             path = root.get(criteria.getKey());
         }
@@ -94,7 +100,10 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
                 break;
             }
             case "!!": {
-                result = builder.or(builder.in(path).value(""), builder.isNull(path));
+                List<UUID> values = Arrays.stream(value.split("\\|"))
+                        .map(UUID::fromString)
+                        .collect(Collectors.toList());
+                result = builder.in(path).value(values);
                 break;
             }
         }
