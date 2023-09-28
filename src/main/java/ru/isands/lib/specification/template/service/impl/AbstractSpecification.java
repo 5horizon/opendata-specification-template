@@ -160,12 +160,11 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
         } else if (OffsetDateTime.class.equals(fieldType)) {
             result = filterProperties.getOffsetDateTimeFormatter() == null
                     ? OffsetDateTime.parse(value)
-                    : filterProperties.getOffsetDateTimeFormatter().parse(value);
-//            result = OffsetDateTime.parse(value);
+                    : OffsetDateTime.parse(value,filterProperties.getOffsetDateTimeFormatter());
         } else if (LocalDate.class.equals(fieldType)) {
             result = filterProperties.getLocalDateFormatter() == null
                     ? LocalDate.parse(value)
-                    : filterProperties.getLocalDateFormatter().parse(value);
+                    : LocalDate.parse(value, filterProperties.getLocalDateFormatter());
         } else {
             result = value;
         }
