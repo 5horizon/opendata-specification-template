@@ -7,22 +7,19 @@ import ru.isands.lib.specification.template.view.SearchCriteria;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -75,20 +72,35 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
                 break;
             }
             case ">>": {
+                if (LocalDate.class.equals(path.getJavaType())) {
+                    result = builder.greaterThan(path, (LocalDate) parseByFieldType(path.getJavaType(), value));
+                    break;
+                }
                 result = builder.greaterThan(path, value);
                 break;
             }
             case ">:": {
+                if (LocalDate.class.equals(path.getJavaType())) {
+                    result = builder.greaterThanOrEqualTo(path, (LocalDate) parseByFieldType(path.getJavaType(), value));
+                    break;
+                }
                 result = builder.greaterThanOrEqualTo(path, value);
                 break;
             }
             case "<<": {
+                if (LocalDate.class.equals(path.getJavaType())) {
+                    result = builder.lessThan(path, (LocalDate) parseByFieldType(path.getJavaType(), value));
+                    break;
+                }
                 result = builder.lessThan(path, value);
                 break;
             }
             case "<:": {
-                result = builder.lessThanOrEqualTo(
-                        path, value);
+                if (LocalDate.class.equals(path.getJavaType())) {
+                    result = builder.lessThanOrEqualTo(path, (LocalDate) parseByFieldType(path.getJavaType(), value));
+                    break;
+                }
+                result = builder.lessThanOrEqualTo(path, value);
                 break;
             }
             case "!:": {
@@ -160,7 +172,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
         } else if (OffsetDateTime.class.equals(fieldType)) {
             result = filterProperties.getOffsetDateTimeFormatter() == null
                     ? OffsetDateTime.parse(value)
-                    : OffsetDateTime.parse(value,filterProperties.getOffsetDateTimeFormatter());
+                    : OffsetDateTime.parse(value, filterProperties.getOffsetDateTimeFormatter());
         } else if (LocalDate.class.equals(fieldType)) {
             result = filterProperties.getLocalDateFormatter() == null
                     ? LocalDate.parse(value)
