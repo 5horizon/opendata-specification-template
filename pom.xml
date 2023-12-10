@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ru.isands.lib</groupId>
 	<artifactId>opendata-specification-template</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>opendata-specification-template</name>
 	<description>Шаблон спецификации</description>
 
@@ -43,12 +43,11 @@
 		</dependency>
 	</dependencies>
 	<distributionManagement>
-		<snapshotRepository>
+		<repository>
 			<id>opendata-nexus</id>
 			<name>opendata-nexus</name>
 			<url>https://sw.v-serv.ru/nexus-ci/repository/mt_economy_portal_dev3_platform_maven/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
+		</repository>
 	</distributionManagement>
 	<build>
 		<plugins>
