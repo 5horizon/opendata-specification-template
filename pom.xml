@@ -43,11 +43,12 @@
 		</dependency>
 	</dependencies>
 	<distributionManagement>
-		<repository>
+		<snapshotRepository>
 			<id>opendata-nexus</id>
 			<name>opendata-nexus</name>
 			<url>https://sw.v-serv.ru/nexus-ci/repository/mt_economy_portal_dev3_platform_maven/</url>
-		</repository>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
 	</distributionManagement>
 	<build>
 		<plugins>
